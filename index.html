@@ -108,9 +108,9 @@
     grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
   }
 
-  .gift { position: relative; perspective: 1200px; min-height: 500px; }
+  .gift { position: relative; perspective: 1200px; min-height: 540px; }
   .gift-inner {
-    position: relative; width: 100%; height: 100%; min-height: 500px;
+    position: relative; width: 100%; height: 100%; min-height: 540px;
     transition: transform .8s cubic-bezier(.2,.8,.2,1); transform-style: preserve-3d;
   }
   .gift.open .gift-inner { transform: rotateY(180deg); }
@@ -161,7 +161,10 @@
     background: #fff; height: 200px; flex: 0 0 200px; padding: 16px; overflow: hidden;
     border-bottom: 2px dashed #e6ddd3;
   }
-  .card img { display: block; width: 100%; height: 100%; object-fit: contain; }
+  .card .imgwrap { display: flex; gap: 12px; }
+  .card img { display: block; flex: 1 1 0; min-width: 0; height: 100%; object-fit: contain; }
+  .buys { display: flex; flex-direction: column; gap: 8px; }
+  .buy.buy-sm { padding: 8px 12px; font-size: .88rem; text-align: center; }
   .card .body { padding: 16px 18px 18px; display: flex; flex-direction: column; gap: 8px; flex: 1; }
   .card h3 { margin: 0; font-size: 1.05rem; line-height: 1.3; }
   .card .by { margin: 0; font-size: .85rem; color: var(--muted); }
@@ -233,7 +236,7 @@
     <p class="sub">Ho ho ho! So you drew my name in the family Secret Santa? Lucky you. Here's what's on my list.</p>
     <div class="badges">
       <span class="badge">💰 Every gift <strong>under $35</strong></span>
-      <span class="badge">🎁 <strong id="count">3</strong> ideas</span>
+      <span class="badge">🎁 <strong id="count">4</strong> ideas</span>
       <span class="badge">📦 Click, buy, done</span>
     </div>
 
@@ -287,12 +290,37 @@
       tag: "Something handy"
     },
     {
-      title: "The Art of Spending Money",
-      by: "by Morgan Housel · Hardcover",
-      blurb: "Simple choices for a richer life, from the author of The Psychology of Money. How to spend well, not just save. 📚 (Hardcover please!)",
-      price: 12.78,
-      url: "https://www.amazon.com/dp/0593716620/",
-      img: "https://m.media-amazon.com/images/I/71NBGtF7IgL._SL500_.jpg",
+      title: "USB-C Charging Combo",
+      by: "by Anker · 65W 3-port charger + two 6 ft 100W cables",
+      blurb: "One compact brick and two long cables. You can never have too many, and I somehow always have too few. ⚡ (Please get both!)",
+      price: 9.49 + 22.77,
+      priceNote: "for both",
+      img: [
+        "https://m.media-amazon.com/images/I/5164giE9fFL._AC_SL500_.jpg",
+        "https://m.media-amazon.com/images/I/81bpJ7rHD2L._SL500_.jpg"
+      ],
+      links: [
+        { label: "Charger · $22.77", url: "https://www.amazon.com/dp/B09C5RG6KV?psc=1" },
+        { label: "Cables · $9.49", url: "https://www.amazon.com/dp/B09LCJPZ1P?psc=1" }
+      ],
+      tag: "Something powerful"
+    },
+    {
+      title: "Three Books for a Richer Life",
+      by: "The Art of Spending Money & Ikigai (hardcovers) + Die With Zero (paperback)",
+      blurb: "Spending money well, the Japanese secret to a long and happy life, and making the most of every year. Fireside reading for 2027. 📚",
+      price: 12.78 + 12.01 + 9.59,
+      priceNote: "for both",
+      img: [
+        "https://m.media-amazon.com/images/I/71NBGtF7IgL._SL500_.jpg",
+        "https://m.media-amazon.com/images/I/71lJBs5MNlL._SL500_.jpg",
+        "https://m.media-amazon.com/images/I/719vc00JhZL._SL500_.jpg"
+      ],
+      links: [
+        { label: "Art of Spending · $12.78", url: "https://www.amazon.com/dp/0593716620/" },
+        { label: "Ikigai · $12.01", url: "https://www.amazon.com/dp/0143130722/" },
+        { label: "Die With Zero · $9.59", url: "https://www.amazon.com/dp/0358567092/" }
+      ],
       tag: "Something to read"
     }
   ];
@@ -315,14 +343,16 @@
           <span class="tag">To: Dada · ${esc(g.tag)}</span>
         </button>
         <div class="face card" aria-hidden="true">
-          <div class="imgwrap"><img src="${esc(g.img)}" alt="${esc(g.title)}" loading="lazy" referrerpolicy="no-referrer"></div>
+          <div class="imgwrap">${[].concat(g.img).map(src => `<img src="${esc(src)}" alt="${esc(g.title)}" loading="lazy" referrerpolicy="no-referrer">`).join("")}</div>
           <div class="body">
             <h3>${esc(g.title)}</h3>
             <p class="by">${esc(g.by)}</p>
             <p class="blurb">${esc(g.blurb)}</p>
             <div class="row">
-              <div class="price">$${g.price.toFixed(2)}<small>approx. price</small></div>
-              <a class="buy" href="${esc(g.url)}" target="_blank" rel="noopener" tabindex="-1">Buy at ${esc(g.store || "Amazon")} →</a>
+              <div class="price">$${g.price.toFixed(2)}<small>approx. ${esc(g.priceNote || "price")}</small></div>
+              ${g.links
+                ? `<div class="buys">${g.links.map(l => `<a class="buy buy-sm" href="${esc(l.url)}" target="_blank" rel="noopener" tabindex="-1">${esc(l.label)} →</a>`).join("")}</div>`
+                : `<a class="buy" href="${esc(g.url)}" target="_blank" rel="noopener" tabindex="-1">Buy at ${esc(g.store || "Amazon")} →</a>`}
             </div>
             <button class="rewrap" tabindex="-1">↺ wrap it back up</button>
           </div>
