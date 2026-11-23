@@ -123,11 +123,11 @@
   .wrapped {
     cursor: pointer; border: none; width: 100%; font: inherit; color: inherit;
     display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 10px;
-    background-color: var(--c1);
-    background-image:
-      linear-gradient(90deg, transparent calc(50% - 16px), var(--gold) calc(50% - 16px), var(--gold) calc(50% + 16px), transparent calc(50% + 16px)),
-      linear-gradient(0deg, transparent calc(50% - 16px), var(--gold) calc(50% - 16px), var(--gold) calc(50% + 16px), transparent calc(50% + 16px)),
-      repeating-linear-gradient(45deg, rgba(255,255,255,.07) 0 14px, transparent 14px 28px);
+    background:
+      linear-gradient(90deg, transparent calc(50% - 16px), var(--ribbon, var(--gold)) calc(50% - 16px), var(--ribbon, var(--gold)) calc(50% + 16px), transparent calc(50% + 16px)),
+      linear-gradient(0deg, transparent calc(50% - 16px), var(--ribbon, var(--gold)) calc(50% - 16px), var(--ribbon, var(--gold)) calc(50% + 16px), transparent calc(50% + 16px)),
+      var(--pattern, repeating-linear-gradient(45deg, rgba(255,255,255,.07) 0 14px, transparent 14px 28px)),
+      var(--c1);
     box-shadow: 0 12px 0 var(--c2), 0 20px 40px rgba(0,0,0,.45);
     transition: transform .2s;
   }
@@ -341,24 +341,26 @@
   const BUDGET = 35;
   const GIFTS = [
     {
-      title: "SUNLU S1 Plus Filament Dryer Box",
-      short: "Dryer box",
-      by: "by SUNLU · Black",
-      blurb: "Keeps 3D printer filament dry so prints come out crisp. A happy printer is a happy Dada. 🖨️",
-      price: 32.29,
-      url: "https://www.amazon.com/dp/B09HJL95RH/",
-      img: "https://m.media-amazon.com/images/I/41gQDFlAyuL._SL500_.jpg",
-      tag: "Something nerdy"
+      title: "tomtoc Travel Tech Pouch",
+      short: "Tech pouch",
+      group: "organize",
+      by: "by tomtoc · Black · Small",
+      blurb: "A tidy, water-resistant pouch for all my cables, chargers and gadgets. No more tangled mess in the bag! 👝",
+      price: 16.79,
+      url: "https://www.amazon.com/dp/B09781ZY7X?th=1&psc=1",
+      img: "https://m.media-amazon.com/images/I/81OGglbW0DL._AC_SL500_.jpg",
+      tag: "Something for travel"
     },
     {
-      title: "SOG PowerPint Mini Multi-Tool",
-      short: "Multi-tool",
-      by: "by SOG · Black",
-      blurb: "18 tools in one pocket-sized package: pliers, knife, screwdrivers and more. Ready for anything. 🔧",
-      price: 33.47,
-      url: "https://www.amazon.com/dp/B08RQJWKP5/",
-      img: "https://m.media-amazon.com/images/I/41rBbnvNriL._SL500_.jpg",
-      tag: "Something handy"
+      title: "MAYJOY 2-Tier Filament Storage Rack",
+      short: "Filament rack",
+      group: "organize",
+      by: "by MAYJOY · Metal · Holds up to 12 spools",
+      blurb: "A sturdy desktop rack to keep all my 3D printer filament spools neat and in reach. 🧵",
+      price: 15.99,
+      url: "https://www.amazon.com/dp/B0DZJ64YP8?smid=AJSN751T1D0BU&psc=1",
+      img: "https://m.media-amazon.com/images/I/71aMrzQOLFL._SL500_.jpg",
+      tag: "Something tidy"
     },
     {
       title: "Anker 65W 3-Port USB-C Charger",
@@ -383,26 +385,24 @@
       tag: "Something practical"
     },
     {
-      title: "tomtoc Travel Tech Pouch",
-      short: "Tech pouch",
-      group: "organize",
-      by: "by tomtoc · Black · Small",
-      blurb: "A tidy, water-resistant pouch for all my cables, chargers and gadgets. No more tangled mess in the bag! 👝",
-      price: 16.79,
-      url: "https://www.amazon.com/dp/B09781ZY7X?th=1&psc=1",
-      img: "https://m.media-amazon.com/images/I/81OGglbW0DL._AC_SL500_.jpg",
-      tag: "Something for travel"
+      title: "SUNLU S1 Plus Filament Dryer Box",
+      short: "Dryer box",
+      by: "by SUNLU · Black",
+      blurb: "Keeps 3D printer filament dry so prints come out crisp. A happy printer is a happy Dada. 🖨️",
+      price: 32.29,
+      url: "https://www.amazon.com/dp/B09HJL95RH/",
+      img: "https://m.media-amazon.com/images/I/41gQDFlAyuL._SL500_.jpg",
+      tag: "Something nerdy"
     },
     {
-      title: "MAYJOY 2-Tier Filament Storage Rack",
-      short: "Filament rack",
-      group: "organize",
-      by: "by MAYJOY · Metal · Holds up to 12 spools",
-      blurb: "A sturdy desktop rack to keep all my 3D printer filament spools neat and in reach. 🧵",
-      price: 15.99,
-      url: "https://www.amazon.com/dp/B0DZJ64YP8?smid=AJSN751T1D0BU&psc=1",
-      img: "https://m.media-amazon.com/images/I/71aMrzQOLFL._SL500_.jpg",
-      tag: "Something tidy"
+      title: "SOG PowerPint Mini Multi-Tool",
+      short: "Multi-tool",
+      by: "by SOG · Black",
+      blurb: "18 tools in one pocket-sized package: pliers, knife, screwdrivers and more. Ready for anything. 🔧",
+      price: 33.47,
+      url: "https://www.amazon.com/dp/B08RQJWKP5/",
+      img: "https://m.media-amazon.com/images/I/41rBbnvNriL._SL500_.jpg",
+      tag: "Something handy"
     },
     {
       title: "The Art of Spending Money",
@@ -430,7 +430,7 @@
   // ==================================
 
   const grid = document.getElementById("gifts");
-  const bows = ["🎀", "🎁", "⭐"];
+  const bows = ["🎀", "🎁", "⭐", "🔔", "❄️", "🎄", "🌟", "🍬"];
   const esc = s => String(s).replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
 
   const visible = GIFTS.filter(g => g.price <= BUDGET);
@@ -468,13 +468,40 @@
 
   document.getElementById("count").textContent = cards.length;
 
+  // ----- Random wrapping paper: new look on every visit -----
+  const PAPERS = [
+    ["#c8102e", "#8e0b20"], ["#146b3a", "#0b4224"], ["#2b4c8c", "#1a2f59"],
+    ["#6a2c91", "#45195f"], ["#0f7c8a", "#08505a"], ["#b8860b", "#7a5a07"],
+    ["#d4466f", "#93284a"], ["#7a8a99", "#4f5b66"], ["#a0522d", "#6b3519"],
+    ["#1f1f3a", "#0e0e22"]
+  ];
+  const RIBBONS = ["#f2c14e", "#fdfcf8", "#e8e8f0", "#ff6b6b", "#7ee0a1", "#ffd1dc"];
+  const PATTERNS = [
+    "repeating-linear-gradient(45deg, rgba(255,255,255,.08) 0 14px, transparent 14px 28px)",
+    "repeating-linear-gradient(-45deg, rgba(255,255,255,.08) 0 8px, transparent 8px 22px)",
+    "radial-gradient(circle, rgba(255,255,255,.22) 2.5px, transparent 3px) 0 0 / 22px 22px",
+    "radial-gradient(circle, rgba(255,255,255,.18) 5px, transparent 5.5px) 0 0 / 36px 36px",
+    "repeating-linear-gradient(0deg, rgba(255,255,255,.08) 0 10px, transparent 10px 30px), repeating-linear-gradient(90deg, rgba(0,0,0,.12) 0 10px, transparent 10px 30px)",
+    "repeating-linear-gradient(90deg, rgba(255,255,255,.1) 0 6px, transparent 6px 26px)"
+  ];
+  const shuffle = a => { a = [...a]; for (let i = a.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [a[i], a[j]] = [a[j], a[i]]; } return a; };
+  const papers = shuffle(PAPERS), patterns = shuffle(PATTERNS), bowOrder = shuffle(bows);
+  const pickRibbon = (paper, prev) => shuffle(RIBBONS).find(r => r !== prev && r.toLowerCase() !== paper.toLowerCase()) || RIBBONS[0];
+  let lastRibbon = null;
+
   cards.forEach((g, i) => {
     const el = document.createElement("article");
     el.className = "gift";
+    const [c1, c2] = papers[i % papers.length];
+    const ribbon = lastRibbon = pickRibbon(c1, lastRibbon);
+    el.style.setProperty("--c1", c1);
+    el.style.setProperty("--c2", c2);
+    el.style.setProperty("--ribbon", ribbon);
+    el.style.setProperty("--pattern", patterns[i % patterns.length]);
     el.innerHTML = `
       <div class="gift-inner">
         <button class="face wrapped" aria-label="Unwrap gift ${i + 1}: ${esc(g.tag)}">
-          <span class="bow" aria-hidden="true">${bows[i % bows.length]}</span>
+          <span class="bow" aria-hidden="true" style="animation-delay: ${(Math.random() * 2).toFixed(2)}s">${bowOrder[i % bowOrder.length]}</span>
           <span class="tag">To: Dada · ${esc(g.tag)}</span>
         </button>
         <div class="face card" aria-hidden="true">
