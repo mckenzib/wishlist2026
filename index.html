@@ -1,0 +1,426 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Dada's Secret Santa Wishlist 2026</title>
+<meta name="description" content="Dada's Secret Santa wishlist for Christmas 2026. Everything under $35!">
+<meta property="og:title" content="🎅 Dada's Secret Santa Wishlist 2026">
+<meta property="og:description" content="Psst… you drew Dada? Here's what's on the list. Everything under $35.">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🎄</text></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Mountains+of+Christmas:wght@700&family=Nunito:wght@400;700;900&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --night: #0d1b2a;
+    --night-2: #1b2d45;
+    --red: #c8102e;
+    --red-dark: #8e0b20;
+    --green: #146b3a;
+    --green-dark: #0b4224;
+    --gold: #f2c14e;
+    --snow: #fdfcf8;
+    --ink: #2a1f1a;
+    --muted: #6b5d55;
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; }
+  body {
+    font-family: "Nunito", system-ui, sans-serif;
+    color: var(--snow);
+    background:
+      radial-gradient(ellipse at top, var(--night-2), var(--night) 70%) fixed;
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  /* ---------- Snow ---------- */
+  #snow { position: fixed; inset: 0; pointer-events: none; z-index: 0; }
+
+  /* ---------- Lights ---------- */
+  .lights {
+    position: relative; z-index: 2;
+    display: flex; justify-content: space-around;
+    padding: 0 8px; margin: 0; list-style: none;
+    height: 44px; overflow: hidden;
+  }
+  .lights::before {
+    content: ""; position: absolute; left: 0; right: 0; top: 6px;
+    border-top: 2px solid #222; border-radius: 50%;
+  }
+  .lights li {
+    position: relative; top: 12px;
+    width: 12px; height: 22px; border-radius: 50%;
+    animation: flash 1.2s infinite alternate;
+  }
+  .lights li::before {
+    content: ""; position: absolute; top: -5px; left: 2px;
+    width: 8px; height: 6px; background: #333; border-radius: 2px;
+  }
+  .lights li:nth-child(4n+1) { --c: #ff3b3b; }
+  .lights li:nth-child(4n+2) { --c: #ffd93b; animation-delay: .3s; }
+  .lights li:nth-child(4n+3) { --c: #3bff7a; animation-delay: .6s; }
+  .lights li:nth-child(4n+4) { --c: #3bb8ff; animation-delay: .9s; }
+  .lights li { background: var(--c); box-shadow: 0 4px 18px 3px var(--c); }
+  @keyframes flash { to { background: color-mix(in srgb, var(--c) 30%, #222); box-shadow: none; } }
+
+  /* ---------- Layout ---------- */
+  main { position: relative; z-index: 1; max-width: 1040px; margin: 0 auto; padding: 0 16px 64px; }
+
+  header { text-align: center; padding: 24px 0 8px; }
+  .kicker {
+    display: inline-block; font-weight: 900; letter-spacing: .18em; text-transform: uppercase;
+    font-size: .8rem; color: var(--gold); margin-bottom: 8px;
+  }
+  h1 {
+    font-family: "Mountains of Christmas", cursive;
+    font-size: clamp(2.6rem, 9vw, 5rem); line-height: 1; margin: 0 0 12px;
+    color: var(--snow);
+    text-shadow: 0 3px 0 var(--red-dark), 0 0 30px rgba(242,193,78,.35);
+  }
+  h1 .yr { color: var(--gold); }
+  .sub { font-size: 1.15rem; max-width: 560px; margin: 0 auto 20px; opacity: .92; }
+
+  .badges { display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; margin-bottom: 8px; }
+  .badge {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: rgba(255,255,255,.08); border: 1px solid rgba(255,255,255,.18);
+    padding: 8px 14px; border-radius: 999px; font-weight: 700; font-size: .95rem;
+  }
+  .badge strong { color: var(--gold); }
+
+  /* ---------- Countdown ---------- */
+  .countdown { display: flex; justify-content: center; gap: 10px; margin: 24px 0 8px; }
+  .cd-box {
+    background: var(--red); border-radius: 12px; min-width: 72px; padding: 10px 8px 8px;
+    text-align: center; box-shadow: 0 6px 0 var(--red-dark);
+    background-image: repeating-linear-gradient(135deg, transparent 0 10px, rgba(255,255,255,.06) 10px 20px);
+  }
+  .cd-num { font-size: 1.9rem; font-weight: 900; line-height: 1; font-variant-numeric: tabular-nums; }
+  .cd-lbl { font-size: .7rem; text-transform: uppercase; letter-spacing: .12em; opacity: .85; }
+  .cd-caption { text-align: center; font-size: .9rem; opacity: .75; margin: 6px 0 0; }
+
+  /* ---------- Gifts ---------- */
+  .hint { text-align: center; margin: 40px 0 18px; font-weight: 700; color: var(--gold); }
+  .grid {
+    display: grid; gap: 28px;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  }
+
+  .gift { position: relative; perspective: 1200px; min-height: 440px; }
+  .gift-inner {
+    position: relative; width: 100%; height: 100%; min-height: 440px;
+    transition: transform .8s cubic-bezier(.2,.8,.2,1); transform-style: preserve-3d;
+  }
+  .gift.open .gift-inner { transform: rotateY(180deg); }
+  .face {
+    position: absolute; inset: 0; border-radius: 18px;
+    backface-visibility: hidden; -webkit-backface-visibility: hidden;
+  }
+
+  /* wrapped side */
+  .wrapped {
+    cursor: pointer; border: none; width: 100%; font: inherit; color: inherit;
+    display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 10px;
+    background-color: var(--c1);
+    background-image:
+      linear-gradient(90deg, transparent calc(50% - 16px), var(--gold) calc(50% - 16px), var(--gold) calc(50% + 16px), transparent calc(50% + 16px)),
+      linear-gradient(0deg, transparent calc(50% - 16px), var(--gold) calc(50% - 16px), var(--gold) calc(50% + 16px), transparent calc(50% + 16px)),
+      repeating-linear-gradient(45deg, rgba(255,255,255,.07) 0 14px, transparent 14px 28px);
+    box-shadow: 0 12px 0 var(--c2), 0 20px 40px rgba(0,0,0,.45);
+    transition: transform .2s;
+  }
+  .wrapped:hover, .wrapped:focus-visible { transform: translateY(-4px) rotate(-1deg); outline: none; }
+  .wrapped:focus-visible { box-shadow: 0 12px 0 var(--c2), 0 0 0 4px var(--gold); }
+  .gift:nth-child(3n+1) { --c1: var(--red); --c2: var(--red-dark); }
+  .gift:nth-child(3n+2) { --c1: var(--green); --c2: var(--green-dark); }
+  .gift:nth-child(3n+3) { --c1: #2b4c8c; --c2: #1a2f59; }
+  .bow { font-size: 4.5rem; filter: drop-shadow(0 4px 4px rgba(0,0,0,.35)); animation: wiggle 2.4s ease-in-out infinite; }
+  .gift:nth-child(2) .bow { animation-delay: .4s; }
+  .gift:nth-child(3) .bow { animation-delay: .8s; }
+  @keyframes wiggle { 0%,80%,100% { transform: rotate(0); } 85% { transform: rotate(-12deg); } 90% { transform: rotate(10deg); } 95% { transform: rotate(-6deg); } }
+  .tag {
+    background: var(--snow); color: var(--ink); font-weight: 900;
+    padding: 8px 16px; border-radius: 6px; transform: rotate(-3deg);
+    box-shadow: 0 3px 8px rgba(0,0,0,.3); position: relative;
+  }
+  .tag::before { content: "●"; color: #bbb; font-size: .6rem; margin-right: 8px; vertical-align: middle; }
+  .shake { animation: shake .45s; }
+  @keyframes shake { 20% { transform: rotate(-4deg); } 40% { transform: rotate(4deg); } 60% { transform: rotate(-3deg); } 80% { transform: rotate(2deg); } }
+
+  /* unwrapped side */
+  .card {
+    transform: rotateY(180deg);
+    background: var(--snow); color: var(--ink);
+    display: flex; flex-direction: column; overflow: hidden;
+    box-shadow: 0 20px 40px rgba(0,0,0,.45);
+    border: 3px solid var(--c1);
+  }
+  .card .imgwrap {
+    background: #fff; height: 200px; display: grid; place-items: center; padding: 16px;
+    border-bottom: 2px dashed #e6ddd3;
+  }
+  .card img { max-width: 100%; max-height: 100%; object-fit: contain; }
+  .card .body { padding: 16px 18px 18px; display: flex; flex-direction: column; gap: 8px; flex: 1; }
+  .card h3 { margin: 0; font-size: 1.05rem; line-height: 1.3; }
+  .card .by { margin: 0; font-size: .85rem; color: var(--muted); }
+  .card .blurb { margin: 0; font-size: .92rem; }
+  .card .row { margin-top: auto; display: flex; align-items: center; justify-content: space-between; gap: 10px; padding-top: 8px; }
+  .price { font-size: 1.5rem; font-weight: 900; color: var(--green); }
+  .price small { display: block; font-size: .7rem; font-weight: 700; color: var(--muted); letter-spacing: .04em; }
+  .buy {
+    background: var(--red); color: #fff; text-decoration: none; font-weight: 900;
+    padding: 10px 16px; border-radius: 10px; box-shadow: 0 4px 0 var(--red-dark);
+    white-space: nowrap; transition: transform .15s, box-shadow .15s;
+  }
+  .buy:hover { transform: translateY(2px); box-shadow: 0 2px 0 var(--red-dark); }
+  .rewrap {
+    background: none; border: none; color: var(--muted); font: inherit; font-size: .8rem;
+    cursor: pointer; text-decoration: underline; padding: 0; align-self: flex-start;
+  }
+
+  .controls { display: flex; justify-content: center; margin: 28px 0 0; }
+  .btn-ghost {
+    background: rgba(255,255,255,.1); color: var(--snow); border: 1px solid rgba(255,255,255,.3);
+    font: inherit; font-weight: 700; padding: 10px 18px; border-radius: 999px; cursor: pointer;
+  }
+  .btn-ghost:hover { background: rgba(255,255,255,.18); }
+
+  /* ---------- Rules ---------- */
+  .rules {
+    margin: 56px auto 0; max-width: 640px;
+    background: #f6efe2; color: var(--ink);
+    border-radius: 6px; padding: 28px 28px 22px;
+    box-shadow: 0 20px 40px rgba(0,0,0,.4);
+    transform: rotate(-.6deg); position: relative;
+    background-image: repeating-linear-gradient(transparent 0 27px, #e3d6bf 27px 28px);
+  }
+  .rules::before {
+    content: "📌"; position: absolute; top: -14px; left: 50%; transform: translateX(-50%); font-size: 1.6rem;
+  }
+  .rules h2 {
+    font-family: "Mountains of Christmas", cursive; color: var(--red);
+    font-size: 2rem; margin: 0 0 8px; text-align: center;
+  }
+  .rules ol { margin: 0; padding-left: 22px; line-height: 28px; }
+  .rules .sig { text-align: right; font-family: "Mountains of Christmas", cursive; font-size: 1.4rem; margin: 10px 0 0; color: var(--green); }
+
+  footer { text-align: center; margin-top: 48px; font-size: .85rem; opacity: .6; }
+
+  /* ---------- Confetti ---------- */
+  .confetti { position: fixed; pointer-events: none; z-index: 50; font-size: 22px; will-change: transform, opacity; }
+
+  @media (max-width: 480px) {
+    .cd-box { min-width: 0; flex: 1; }
+    .cd-num { font-size: 1.5rem; }
+    .rules { padding: 24px 18px 18px; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after { animation: none !important; transition: none !important; }
+  }
+</style>
+</head>
+<body>
+<canvas id="snow" aria-hidden="true"></canvas>
+
+<ul class="lights" aria-hidden="true" id="lights"></ul>
+
+<main>
+  <header>
+    <span class="kicker">🤫 Top Secret · For Santa's eyes only</span>
+    <h1>Dada's Wishlist <span class="yr">2026</span></h1>
+    <p class="sub">Ho ho ho! So you drew my name in the family Secret Santa? Lucky you. Here's what's on my list.</p>
+    <div class="badges">
+      <span class="badge">💰 Every gift <strong>under $35</strong></span>
+      <span class="badge">🎁 <strong id="count">3</strong> ideas</span>
+      <span class="badge">📦 Click, buy, done</span>
+    </div>
+
+    <div class="countdown" role="timer" aria-label="Countdown to Christmas">
+      <div class="cd-box"><div class="cd-num" id="cd-d">--</div><div class="cd-lbl">Days</div></div>
+      <div class="cd-box"><div class="cd-num" id="cd-h">--</div><div class="cd-lbl">Hours</div></div>
+      <div class="cd-box"><div class="cd-num" id="cd-m">--</div><div class="cd-lbl">Mins</div></div>
+      <div class="cd-box"><div class="cd-num" id="cd-s">--</div><div class="cd-lbl">Secs</div></div>
+    </div>
+    <p class="cd-caption" id="cd-caption">until Christmas morning — don't leave it to the last minute!</p>
+  </header>
+
+  <p class="hint">👇 Tap a present to unwrap it 👇</p>
+  <section class="grid" id="gifts" aria-label="Wishlist gifts"></section>
+  <div class="controls"><button class="btn-ghost" id="open-all">🎉 Unwrap them all</button></div>
+
+  <section class="rules" aria-labelledby="rules-h">
+    <h2 id="rules-h">Notes for my Secret Santa</h2>
+    <ol>
+      <li>Pick any <em>one</em> thing — they're all winners.</li>
+      <li>Everything is under the <strong>$35</strong> limit (prices on Amazon can wiggle a bit).</li>
+      <li>The "Buy" buttons take you straight to the exact item I want.</li>
+      <li>Keep it a secret! 🤐</li>
+    </ol>
+    <p class="sig">Merry Christmas! — Dada 🎄</p>
+  </section>
+
+  <footer>Made with 🎄 and a little elf magic · Christmas 2026</footer>
+</main>
+
+<script>
+  // ===== Edit the wishlist here =====
+  const BUDGET = 35;
+  const GIFTS = [
+    {
+      title: "Die With Zero",
+      by: "by Bill Perkins · Hardcover",
+      blurb: "A book about spending your life on experiences instead of hoarding money. Bold strategy to gift right before Christmas shopping. 📚 (Hardcover please!)",
+      price: 27.99,
+      url: "https://www.porchlightbooks.com/products/die-with-zero-bill-perkins-9780358099765",
+      img: "https://www.porchlightbooks.com/cdn/shop/files/9780358099765.jpg",
+      store: "Porchlight",
+      tag: "Something to read"
+    },
+    {
+      title: "SUNLU S1 Plus Filament Dryer Box",
+      by: "by SUNLU · Black",
+      blurb: "Keeps 3D printer filament dry so prints come out crisp. A happy printer is a happy Dada. 🖨️",
+      price: 32.29,
+      url: "https://www.amazon.com/dp/B09HJL95RH/",
+      img: "https://m.media-amazon.com/images/I/41gQDFlAyuL._SL500_.jpg",
+      tag: "Something nerdy"
+    },
+    {
+      title: "SOG PowerPint Mini Multi-Tool",
+      by: "by SOG · Black",
+      blurb: "18 tools in one pocket-sized package: pliers, knife, screwdrivers and more. Ready for anything. 🔧",
+      price: 33.47,
+      url: "https://www.amazon.com/dp/B08RQJWKP5/",
+      img: "https://m.media-amazon.com/images/I/41rBbnvNriL._SL500_.jpg",
+      tag: "Something handy"
+    }
+  ];
+  // ==================================
+
+  const grid = document.getElementById("gifts");
+  const bows = ["🎀", "🎁", "⭐"];
+  const esc = s => String(s).replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+
+  const visible = GIFTS.filter(g => g.price <= BUDGET);
+  document.getElementById("count").textContent = visible.length;
+
+  visible.forEach((g, i) => {
+    const el = document.createElement("article");
+    el.className = "gift";
+    el.innerHTML = `
+      <div class="gift-inner">
+        <button class="face wrapped" aria-label="Unwrap gift ${i + 1}: ${esc(g.tag)}">
+          <span class="bow" aria-hidden="true">${bows[i % bows.length]}</span>
+          <span class="tag">To: Dada · ${esc(g.tag)}</span>
+        </button>
+        <div class="face card" aria-hidden="true">
+          <div class="imgwrap"><img src="${esc(g.img)}" alt="${esc(g.title)}" loading="lazy" referrerpolicy="no-referrer"></div>
+          <div class="body">
+            <h3>${esc(g.title)}</h3>
+            <p class="by">${esc(g.by)}</p>
+            <p class="blurb">${esc(g.blurb)}</p>
+            <div class="row">
+              <div class="price">$${g.price.toFixed(2)}<small>approx. price</small></div>
+              <a class="buy" href="${esc(g.url)}" target="_blank" rel="noopener" tabindex="-1">Buy at ${esc(g.store || "Amazon")} →</a>
+            </div>
+            <button class="rewrap" tabindex="-1">↺ wrap it back up</button>
+          </div>
+        </div>
+      </div>`;
+    const wrapped = el.querySelector(".wrapped");
+    const card = el.querySelector(".card");
+    const setOpen = open => {
+      el.classList.toggle("open", open);
+      card.setAttribute("aria-hidden", String(!open));
+      wrapped.setAttribute("aria-hidden", String(open));
+      wrapped.tabIndex = open ? -1 : 0;
+      card.querySelectorAll("a,button").forEach(n => n.tabIndex = open ? 0 : -1);
+    };
+    wrapped.addEventListener("click", e => {
+      wrapped.classList.remove("shake"); void wrapped.offsetWidth; wrapped.classList.add("shake");
+      const r = wrapped.getBoundingClientRect();
+      setTimeout(() => { setOpen(true); burst(r.left + r.width / 2, r.top + r.height / 2); card.querySelector(".buy").focus({ preventScroll: true }); }, 380);
+    });
+    el.querySelector(".rewrap").addEventListener("click", () => { setOpen(false); wrapped.focus({ preventScroll: true }); });
+    el._open = () => { setOpen(true); };
+    grid.appendChild(el);
+  });
+
+  document.getElementById("open-all").addEventListener("click", () => {
+    [...grid.children].forEach((el, i) => setTimeout(() => {
+      if (!el.classList.contains("open")) {
+        const r = el.getBoundingClientRect();
+        el._open(); burst(r.left + r.width / 2, r.top + r.height / 2);
+      }
+    }, i * 250));
+  });
+
+  // ----- Confetti burst -----
+  const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
+  function burst(x, y) {
+    if (reduce) return;
+    const bits = ["❄️", "⭐", "🎄", "✨", "🔔", "🍪"];
+    for (let i = 0; i < 18; i++) {
+      const s = document.createElement("span");
+      s.className = "confetti";
+      s.textContent = bits[i % bits.length];
+      s.style.left = x + "px"; s.style.top = y + "px";
+      document.body.appendChild(s);
+      const a = Math.random() * Math.PI * 2, d = 80 + Math.random() * 140;
+      s.animate([
+        { transform: "translate(-50%,-50%) scale(.4)", opacity: 1 },
+        { transform: `translate(calc(-50% + ${Math.cos(a) * d}px), calc(-50% + ${Math.sin(a) * d + 60}px)) rotate(${Math.random() * 360}deg) scale(1)`, opacity: 0 }
+      ], { duration: 900 + Math.random() * 500, easing: "cubic-bezier(.2,.8,.3,1)" }).onfinish = () => s.remove();
+    }
+  }
+
+  // ----- Lights -----
+  const lights = document.getElementById("lights");
+  const n = Math.max(12, Math.round(innerWidth / 42));
+  lights.innerHTML = "<li></li>".repeat(n);
+
+  // ----- Countdown -----
+  function tick() {
+    const now = new Date();
+    let xmas = new Date(now.getFullYear(), 11, 25);
+    const cap = document.getElementById("cd-caption");
+    if (now.getMonth() === 11 && now.getDate() === 25) { cap.textContent = "🎅 It's Christmas! Merry Christmas! 🎄"; xmas = now; }
+    else if (now > xmas) xmas = new Date(now.getFullYear() + 1, 11, 25);
+    const diff = Math.max(0, xmas - now);
+    const pad = v => String(v).padStart(2, "0");
+    document.getElementById("cd-d").textContent = Math.floor(diff / 864e5);
+    document.getElementById("cd-h").textContent = pad(Math.floor(diff / 36e5) % 24);
+    document.getElementById("cd-m").textContent = pad(Math.floor(diff / 6e4) % 60);
+    document.getElementById("cd-s").textContent = pad(Math.floor(diff / 1e3) % 60);
+  }
+  tick(); setInterval(tick, 1000);
+
+  // ----- Snow -----
+  const cv = document.getElementById("snow"), ctx = cv.getContext("2d");
+  let W, H, flakes = [];
+  function resize() {
+    W = cv.width = innerWidth; H = cv.height = innerHeight;
+    const count = reduce ? 0 : Math.min(160, Math.round(W * H / 9000));
+    flakes = Array.from({ length: count }, () => ({
+      x: Math.random() * W, y: Math.random() * H, r: Math.random() * 2.6 + .6,
+      s: Math.random() * .8 + .3, w: Math.random() * Math.PI * 2
+    }));
+  }
+  function snow() {
+    ctx.clearRect(0, 0, W, H);
+    ctx.fillStyle = "rgba(255,255,255,.85)";
+    ctx.beginPath();
+    for (const f of flakes) {
+      f.y += f.s; f.w += .01; f.x += Math.sin(f.w) * .4;
+      if (f.y > H + 5) { f.y = -5; f.x = Math.random() * W; }
+      ctx.moveTo(f.x, f.y); ctx.arc(f.x, f.y, f.r, 0, Math.PI * 2);
+    }
+    ctx.fill();
+    requestAnimationFrame(snow);
+  }
+  addEventListener("resize", resize); resize(); snow();
+</script>
+</body>
+</html>
