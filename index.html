@@ -236,7 +236,7 @@
     <p class="sub">Ho ho ho! So you drew my name in the family Secret Santa? Lucky you. Here's what's on my list.</p>
     <div class="badges">
       <span class="badge">💰 Every gift <strong>under $35</strong></span>
-      <span class="badge">🎁 <strong id="count">4</strong> ideas</span>
+      <span class="badge">🎁 <strong id="count">5</strong> ideas</span>
       <span class="badge">📦 Click, buy, done</span>
     </div>
 
@@ -306,11 +306,23 @@
       tag: "Something powerful"
     },
     {
+      title: "Travel Tech Pouch + Surprise Me!",
+      by: "tomtoc tech organizer pouch (Black, Small) + a little something of your choosing",
+      blurb: "A tidy pouch for all my cables and gadgets. Fill it with something fun (up to about $18) — surprise me! 👝🎁",
+      price: 16.79,
+      priceNote: "pouch + a surprise",
+      img: "https://m.media-amazon.com/images/I/81OGglbW0DL._AC_SL500_.jpg",
+      links: [
+        { label: "Pouch · $16.79", url: "https://www.amazon.com/dp/B09781ZY7X?th=1&psc=1" }
+      ],
+      tag: "Something for travel"
+    },
+    {
       title: "Three Books for a Richer Life",
       by: "The Art of Spending Money & Ikigai (hardcovers) + Die With Zero (paperback)",
       blurb: "Spending money well, the Japanese secret to a long and happy life, and making the most of every year. Fireside reading for 2027. 📚",
       price: 12.78 + 12.01 + 9.59,
-      priceNote: "for both",
+      priceNote: "for all three",
       img: [
         "https://m.media-amazon.com/images/I/71NBGtF7IgL._SL500_.jpg",
         "https://m.media-amazon.com/images/I/71lJBs5MNlL._SL500_.jpg",
@@ -349,7 +361,7 @@
             <p class="by">${esc(g.by)}</p>
             <p class="blurb">${esc(g.blurb)}</p>
             <div class="row">
-              <div class="price">$${g.price.toFixed(2)}<small>approx. ${esc(g.priceNote || "price")}</small></div>
+              <div class="price">${g.priceText ? esc(g.priceText) : "$" + g.price.toFixed(2)}<small>approx. ${esc(g.priceNote || "price")}</small></div>
               ${g.links
                 ? `<div class="buys">${g.links.map(l => `<a class="buy buy-sm" href="${esc(l.url)}" target="_blank" rel="noopener" tabindex="-1">${esc(l.label)} →</a>`).join("")}</div>`
                 : `<a class="buy" href="${esc(g.url)}" target="_blank" rel="noopener" tabindex="-1">Buy at ${esc(g.store || "Amazon")} →</a>`}
