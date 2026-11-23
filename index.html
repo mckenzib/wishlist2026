@@ -126,7 +126,7 @@
     background:
       linear-gradient(90deg, transparent calc(50% - 16px), var(--ribbon, var(--gold)) calc(50% - 16px), var(--ribbon, var(--gold)) calc(50% + 16px), transparent calc(50% + 16px)),
       linear-gradient(0deg, transparent calc(50% - 16px), var(--ribbon, var(--gold)) calc(50% - 16px), var(--ribbon, var(--gold)) calc(50% + 16px), transparent calc(50% + 16px)),
-      var(--pattern, repeating-linear-gradient(45deg, rgba(255,255,255,.07) 0 14px, transparent 14px 28px)),
+      repeating-linear-gradient(45deg, rgba(255,255,255,.07) 0 14px, transparent 14px 28px),
       var(--c1);
     box-shadow: 0 12px 0 var(--c2), 0 20px 40px rgba(0,0,0,.45);
     transition: transform .2s;
@@ -476,16 +476,8 @@
     ["#1f1f3a", "#0e0e22"]
   ];
   const RIBBONS = ["#f2c14e", "#fdfcf8", "#e8e8f0", "#ff6b6b", "#7ee0a1", "#ffd1dc"];
-  const PATTERNS = [
-    "repeating-linear-gradient(45deg, rgba(255,255,255,.08) 0 14px, transparent 14px 28px)",
-    "repeating-linear-gradient(-45deg, rgba(255,255,255,.08) 0 8px, transparent 8px 22px)",
-    "radial-gradient(circle, rgba(255,255,255,.22) 2.5px, transparent 3px) 0 0 / 22px 22px",
-    "radial-gradient(circle, rgba(255,255,255,.18) 5px, transparent 5.5px) 0 0 / 36px 36px",
-    "repeating-linear-gradient(0deg, rgba(255,255,255,.08) 0 10px, transparent 10px 30px), repeating-linear-gradient(90deg, rgba(0,0,0,.12) 0 10px, transparent 10px 30px)",
-    "repeating-linear-gradient(90deg, rgba(255,255,255,.1) 0 6px, transparent 6px 26px)"
-  ];
   const shuffle = a => { a = [...a]; for (let i = a.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [a[i], a[j]] = [a[j], a[i]]; } return a; };
-  const papers = shuffle(PAPERS), patterns = shuffle(PATTERNS), bowOrder = shuffle(bows);
+  const papers = shuffle(PAPERS), bowOrder = shuffle(bows);
   const pickRibbon = (paper, prev) => shuffle(RIBBONS).find(r => r !== prev && r.toLowerCase() !== paper.toLowerCase()) || RIBBONS[0];
   let lastRibbon = null;
 
@@ -497,7 +489,6 @@
     el.style.setProperty("--c1", c1);
     el.style.setProperty("--c2", c2);
     el.style.setProperty("--ribbon", ribbon);
-    el.style.setProperty("--pattern", patterns[i % patterns.length]);
     el.innerHTML = `
       <div class="gift-inner">
         <button class="face wrapped" aria-label="Unwrap gift ${i + 1}: ${esc(g.tag)}">
