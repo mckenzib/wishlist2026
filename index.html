@@ -214,6 +214,56 @@
   /* ---------- Confetti ---------- */
   .confetti { position: fixed; pointer-events: none; z-index: 50; font-size: 22px; will-change: transform, opacity; }
 
+  /* ---------- Mix & Match helper ---------- */
+  .mixer {
+    margin: 56px auto 0; max-width: 720px;
+    background: var(--snow); color: var(--ink);
+    border-radius: 18px; padding: 24px 22px;
+    border: 3px solid var(--gold);
+    box-shadow: 0 20px 40px rgba(0,0,0,.45);
+  }
+  .mixer h2 {
+    font-family: "Mountains of Christmas", cursive; color: var(--green);
+    font-size: 2.1rem; margin: 0; text-align: center;
+  }
+  .mixer .lead { text-align: center; margin: 4px 0 18px; color: var(--muted); }
+  .mixer h3 { font-size: .8rem; letter-spacing: .14em; text-transform: uppercase; color: var(--red); margin: 18px 0 8px; }
+  .ideas { display: flex; flex-wrap: wrap; gap: 8px; }
+  .idea {
+    font: inherit; font-size: .9rem; font-weight: 700; cursor: pointer;
+    background: #fff; color: var(--ink); border: 2px solid #e6ddd3; border-radius: 999px;
+    padding: 7px 12px; text-align: left;
+  }
+  .idea:hover, .idea:focus-visible { border-color: var(--green); outline: none; }
+  .idea b { color: var(--green); }
+  .picks { list-style: none; margin: 0; padding: 0; display: grid; gap: 6px; }
+  .pick label {
+    display: flex; align-items: center; gap: 12px; cursor: pointer;
+    background: #fff; border: 2px solid #eee4d8; border-radius: 12px; padding: 8px 12px;
+    transition: border-color .15s, opacity .15s;
+  }
+  .pick input { width: 20px; height: 20px; accent-color: var(--red); flex: none; }
+  .pick img { width: 40px; height: 40px; object-fit: contain; flex: none; }
+  .pick .nm { flex: 1; font-weight: 700; line-height: 1.25; }
+  .pick .nm small { display: block; font-weight: 400; color: var(--muted); font-size: .78rem; }
+  .pick .pr { font-weight: 900; color: var(--green); }
+  .pick input:checked + img + .nm { color: var(--red); }
+  .pick.on label { border-color: var(--red); background: #fff6f6; }
+  .pick.over label { opacity: .45; cursor: not-allowed; }
+  .pick a { font-size: .8rem; font-weight: 700; color: var(--red); white-space: nowrap; }
+  .meter { margin-top: 18px; }
+  .bar {
+    height: 18px; border-radius: 999px; background: #eee4d8; overflow: hidden;
+    box-shadow: inset 0 2px 4px rgba(0,0,0,.12);
+  }
+  .fill {
+    height: 100%; width: 0; border-radius: 999px; transition: width .35s cubic-bezier(.2,.8,.2,1);
+    background: repeating-linear-gradient(135deg, var(--red) 0 12px, #fff 12px 20px);
+  }
+  .total { display: flex; justify-content: space-between; align-items: baseline; margin-top: 8px; font-weight: 700; }
+  .total .sum { font-size: 1.4rem; font-weight: 900; color: var(--green); }
+  .reset { background: none; border: none; color: var(--muted); font: inherit; font-size: .85rem; text-decoration: underline; cursor: pointer; padding: 0; }
+
   @media (max-width: 480px) {
     .cd-box { min-width: 0; flex: 1; }
     .cd-num { font-size: 1.5rem; }
@@ -253,10 +303,29 @@
   <section class="grid" id="gifts" aria-label="Wishlist gifts"></section>
   <div class="controls"><button class="btn-ghost" id="open-all">🎉 Unwrap them all</button></div>
 
+  <section class="mixer" aria-labelledby="mixer-h">
+    <h2 id="mixer-h">Mix &amp; Match Helper</h2>
+    <p class="lead">Build a bundle that fits the $35 limit. I'll keep count!</p>
+
+    <h3>🎁 Ready-made bundles (tap one)</h3>
+    <div class="ideas" id="ideas"></div>
+
+    <h3>✏️ Or pick your own</h3>
+    <ul class="picks" id="picks"></ul>
+
+    <div class="meter">
+      <div class="bar" role="progressbar" aria-valuemin="0" aria-valuemax="35" aria-valuenow="0" id="bar"><div class="fill" id="fill"></div></div>
+      <div class="total">
+        <span><span class="sum" id="sum">$0.00</span> <span id="left">of $35. Pick a few things!</span></span>
+        <button class="reset" id="reset">Clear</button>
+      </div>
+    </div>
+  </section>
+
   <section class="rules" aria-labelledby="rules-h">
     <h2 id="rules-h">Notes for my Secret Santa</h2>
     <ol>
-      <li>Pick any <em>one</em> thing — they're all winners.</li>
+      <li>Mix and match! Grab whatever you like from any of the gifts, as long as it adds up to $35 or less.</li>
       <li>Everything is under the <strong>$35</strong> limit (prices on Amazon can wiggle a bit).</li>
       <li>The "Buy" buttons take you straight to the exact item I want.</li>
       <li>Keep it a secret! 🤐</li>
@@ -273,6 +342,7 @@
   const GIFTS = [
     {
       title: "SUNLU S1 Plus Filament Dryer Box",
+      short: "Dryer box",
       by: "by SUNLU · Black",
       blurb: "Keeps 3D printer filament dry so prints come out crisp. A happy printer is a happy Dada. 🖨️",
       price: 32.29,
@@ -282,6 +352,7 @@
     },
     {
       title: "SOG PowerPint Mini Multi-Tool",
+      short: "Multi-tool",
       by: "by SOG · Black",
       blurb: "18 tools in one pocket-sized package: pliers, knife, screwdrivers and more. Ready for anything. 🔧",
       price: 33.47,
@@ -290,50 +361,58 @@
       tag: "Something handy"
     },
     {
-      title: "USB-C Charging Combo",
-      by: "Anker 65W 3-port charger + a 3-pack of 6 ft USB-C cables",
-      blurb: "One compact brick and three long cables. You can never have too many, and I somehow always have too few. ⚡ (Please get both!)",
-      price: 7.99 + 22.77,
-      priceNote: "for both",
-      img: [
-        "https://m.media-amazon.com/images/I/5164giE9fFL._AC_SL500_.jpg",
-        "https://m.media-amazon.com/images/I/614v9TAYfuL._SL500_.jpg"
-      ],
-      links: [
-        { label: "Charger · $22.77", url: "https://www.amazon.com/dp/B09C5RG6KV?psc=1" },
-        { label: "Cables · $7.99", url: "https://www.amazon.com/dp/B0F4D3Z414?th=1&psc=1" }
-      ],
+      title: "Anker 65W 3-Port USB-C Charger",
+      short: "Charger",
+      group: "usb",
+      by: "by Anker · Compact & foldable",
+      blurb: "One small brick that charges a laptop, phone and more at once. ⚡",
+      price: 22.77,
+      url: "https://www.amazon.com/dp/B09C5RG6KV?psc=1",
+      img: "https://m.media-amazon.com/images/I/5164giE9fFL._AC_SL500_.jpg",
       tag: "Something powerful"
     },
     {
-      title: "Travel Tech Pouch + Surprise Me!",
-      by: "tomtoc tech organizer pouch (Black, Small) + a little something of your choosing",
-      blurb: "A tidy pouch for all my cables and gadgets. Fill it with something fun (up to about $18) — surprise me! 👝🎁",
+      title: "USB-C to USB-C Cables, 3-Pack",
+      short: "Cables",
+      group: "usb",
+      by: "by FEEL2NICE · 6 ft · Black",
+      blurb: "Three long fast-charging cables. You can never have too many, and I somehow always have too few. 🔌",
+      price: 7.99,
+      url: "https://www.amazon.com/dp/B0F4D3Z414?th=1&psc=1",
+      img: "https://m.media-amazon.com/images/I/614v9TAYfuL._SL500_.jpg",
+      tag: "Something practical"
+    },
+    {
+      title: "tomtoc Travel Tech Pouch",
+      short: "Tech pouch",
+      by: "by tomtoc · Black · Small",
+      blurb: "A tidy, water-resistant pouch for all my cables, chargers and gadgets. No more tangled mess in the bag! 👝",
       price: 16.79,
-      priceNote: "pouch + a surprise",
+      url: "https://www.amazon.com/dp/B09781ZY7X?th=1&psc=1",
       img: "https://m.media-amazon.com/images/I/81OGglbW0DL._AC_SL500_.jpg",
-      links: [
-        { label: "Pouch · $16.79", url: "https://www.amazon.com/dp/B09781ZY7X?th=1&psc=1" }
-      ],
       tag: "Something for travel"
     },
     {
-      title: "Three Books for a Richer Life",
-      by: "The Art of Spending Money & Ikigai (hardcovers) + Die With Zero (paperback)",
-      blurb: "Spending money well, the Japanese secret to a long and happy life, and making the most of every year. Fireside reading for 2027. 📚",
-      price: 12.78 + 12.01 + 9.59,
-      priceNote: "for all three",
-      img: [
-        "https://m.media-amazon.com/images/I/71NBGtF7IgL._SL500_.jpg",
-        "https://m.media-amazon.com/images/I/71lJBs5MNlL._SL500_.jpg",
-        "https://m.media-amazon.com/images/I/719vc00JhZL._SL500_.jpg"
-      ],
-      links: [
-        { label: "Art of Spending · $12.78", url: "https://www.amazon.com/dp/0593716620/" },
-        { label: "Ikigai · $12.01", url: "https://www.amazon.com/dp/0143130722/" },
-        { label: "Die With Zero · $9.59", url: "https://www.amazon.com/dp/0358567092/" }
-      ],
+      title: "The Art of Spending Money",
+      short: "Art of Spending Money",
+      group: "books",
+      by: "by Morgan Housel · Hardcover",
+      blurb: "Simple choices for a richer life, from the author of The Psychology of Money. How to spend well, not just save. 📚 (Hardcover please!)",
+      price: 12.78,
+      url: "https://www.amazon.com/dp/0593716620/",
+      img: "https://m.media-amazon.com/images/I/71NBGtF7IgL._SL500_.jpg",
       tag: "Something to read"
+    },
+    {
+      title: "Ikigai",
+      short: "Ikigai",
+      group: "books",
+      by: "by Héctor García & Francesc Miralles · Hardcover",
+      blurb: "The Japanese secret to a long and happy life. Perfect fireside reading for the new year. 📖 (Hardcover please!)",
+      price: 12.01,
+      url: "https://www.amazon.com/dp/0143130722/",
+      img: "https://m.media-amazon.com/images/I/71lJBs5MNlL._SL500_.jpg",
+      tag: "Something to ponder"
     }
   ];
   // ==================================
@@ -343,9 +422,35 @@
   const esc = s => String(s).replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
 
   const visible = GIFTS.filter(g => g.price <= BUDGET);
-  document.getElementById("count").textContent = visible.length;
+  // Items sharing a `group` show as one bundle card (the Mix & Match helper still lists them separately)
+  const GROUPS = {
+    usb: {
+      title: "USB-C Charging Combo",
+      by: "Anker 65W 3-port charger + a 3-pack of 6 ft USB-C cables",
+      blurb: "One compact brick and three long cables. You can never have too many, and I somehow always have too few. ⚡ Get both, or just one!",
+      tag: "Something powerful"
+    },
+    books: {
+      title: "Books for a Richer Life",
+      by: "The Art of Spending Money (Morgan Housel) + Ikigai (García & Miralles) · Hardcovers",
+      blurb: "One on spending money well, one on the Japanese secret to a long and happy life. Fireside reading for the new year. 📚 Get both, or just one! (Hardcovers please!)",
+      tag: "Something to read"
+    }
+  };
+  const cards = [];
+  visible.forEach(g => {
+    if (!g.group) return cards.push(g);
+    let c = cards.find(x => x._group === g.group);
+    if (!c) cards.push(c = { ...GROUPS[g.group], _group: g.group, price: 0, img: [], links: [] });
+    c.price += g.price;
+    c.img.push(g.img);
+    c.links.push({ label: `${g.short} · $${g.price.toFixed(2)}`, url: g.url });
+    c.priceNote = c.links.length === 2 ? "for both" : "for all";
+  });
 
-  visible.forEach((g, i) => {
+  document.getElementById("count").textContent = cards.length;
+
+  cards.forEach((g, i) => {
     const el = document.createElement("article");
     el.className = "gift";
     el.innerHTML = `
@@ -397,6 +502,75 @@
       }
     }, i * 250));
   });
+
+  // ----- Mix & Match helper -----
+  const money = n => "$" + n.toFixed(2);
+  const short = g => g.short || g.title;
+  const picksEl = document.getElementById("picks");
+  const chosen = new Set();
+
+  visible.forEach((g, i) => {
+    const li = document.createElement("li");
+    li.className = "pick";
+    li.innerHTML = `
+      <label>
+        <input type="checkbox" data-i="${i}">
+        <img src="${esc([].concat(g.img)[0])}" alt="" loading="lazy" referrerpolicy="no-referrer">
+        <span class="nm">${esc(short(g))}<small>${esc(g.title)}</small></span>
+        <span class="pr">${money(g.price)}</span>
+      </label>`;
+    const box = li.querySelector("input");
+    box.addEventListener("change", () => { box.checked ? chosen.add(i) : chosen.delete(i); updateMix(); });
+    picksEl.appendChild(li);
+  });
+
+  function updateMix() {
+    const total = [...chosen].reduce((t, i) => t + visible[i].price, 0);
+    const left = BUDGET - total;
+    document.getElementById("sum").textContent = money(total);
+    document.getElementById("left").textContent =
+      total === 0 ? `of $${BUDGET}. Pick a few things!`
+      : left < 0.005 ? `of $${BUDGET}. Right on the money! 🎯`
+      : `of $${BUDGET}. ${money(left)} left`;
+    document.getElementById("fill").style.width = Math.min(100, total / BUDGET * 100) + "%";
+    document.getElementById("bar").setAttribute("aria-valuenow", total.toFixed(2));
+    picksEl.querySelectorAll(".pick").forEach(li => {
+      const box = li.querySelector("input"), i = +box.dataset.i;
+      const over = !chosen.has(i) && visible[i].price > left + 0.005;
+      li.classList.toggle("on", chosen.has(i));
+      li.classList.toggle("over", over);
+      box.disabled = over;
+      li.querySelector("label").title = over ? "That would go over $35" : "";
+    });
+  }
+
+  // Every combination from $25 to $35, best use of the budget first
+  const combos = [];
+  for (let mask = 1; mask < 1 << visible.length; mask++) {
+    const idx = visible.map((_, i) => i).filter(i => mask & (1 << i));
+    const total = idx.reduce((t, i) => t + visible[i].price, 0);
+    if (total <= BUDGET && total >= 25 && idx.length > 1) combos.push({ idx, total });
+  }
+  combos.sort((a, b) => b.total - a.total);
+  const ideasEl = document.getElementById("ideas");
+  combos.slice(0, 8).forEach(c => {
+    const b = document.createElement("button");
+    b.className = "idea";
+    b.innerHTML = `${c.idx.map(i => esc(short(visible[i]))).join(" + ")} · <b>${money(c.total)}</b>`;
+    b.addEventListener("click", () => {
+      chosen.clear(); c.idx.forEach(i => chosen.add(i));
+      picksEl.querySelectorAll("input").forEach(box => box.checked = chosen.has(+box.dataset.i));
+      updateMix();
+      picksEl.scrollIntoView({ behavior: reduce ? "auto" : "smooth", block: "nearest" });
+    });
+    ideasEl.appendChild(b);
+  });
+  if (!combos.length) ideasEl.closest(".mixer").querySelector("h3").hidden = true;
+
+  document.getElementById("reset").addEventListener("click", () => {
+    chosen.clear(); picksEl.querySelectorAll("input").forEach(b => b.checked = false); updateMix();
+  });
+  updateMix();
 
   // ----- Confetti burst -----
   const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
